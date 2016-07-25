@@ -12,7 +12,7 @@ pageRangeEnd = int(pageRangeEnd)
 if pageRangeStart == -1 and pageRangeEnd == -1:
 	proc = subprocess.Popen(['python', 'pdf2txt.py', '-o', outFile, inFile])
 elif pageRangeStart == pageRangeEnd:
-	proc = subprocess.Popen(['python', 'pdf2txt.py', '-p', pageRangeStart, '-o', outFile, inFile])
+	proc = subprocess.Popen(['python', 'pdf2txt.py', '-p', str(pageRangeStart), '-o', outFile, inFile])
 else:
 	page_list = [str(x) for x in range(pageRangeStart, pageRangeEnd+1)]
 	page_string = ', '.join(page_list)
@@ -28,3 +28,7 @@ MT.print_norm_dict(LineDictionary)
 #Create Mutant Dictionary from normal dictionary, print to test
 MutantDictionary = MT.create_mutants(LineDictionary)
 MT.print_mutant_dict(MutantDictionary)
+
+MT.write_files(MutantDictionary)
+
+

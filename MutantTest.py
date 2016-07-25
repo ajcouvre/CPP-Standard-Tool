@@ -73,4 +73,15 @@ def create_mutants(OriginalDict):
 						MutantDict[key]["No Errors"].append(line)
 					for index in ErrorIndex:
 						MutantDict[key]["No Errors"].pop(index)
-	return MutantDict				
+	return MutantDict
+
+
+def write_files(MutantDict):
+	for name, example in MutantDict.iteritems():
+		for mutant, lines in example:
+			newfile = open(name + mutant + ".cpp")
+			for line in lines:
+				newFile.write(line)
+				newfile.write("\n")
+				
+			

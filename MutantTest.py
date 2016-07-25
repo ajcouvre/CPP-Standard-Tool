@@ -20,10 +20,10 @@ def read_file(filename):
 			LineDictionary['Ex.'+str(counter)] = {"Lines":[], "Error":0}
 			DictCreation = 1
 		if ExampleReader == 1 and DictCreation == 1:
-			LineDictionary["Ex."=str(counter)]["Lines"].append(line)
+			LineDictionary["Ex."+str(counter)]["Lines"].append(line)
 			if "error" in line:
-				LineDictionary['Ex."+str(counter)]["Error"] += 1
-	filename.close()
+				LineDictionary["Ex."+str(counter)]["Error"] += 1
+	inFile.close()
 	return LineDictionary
 
 #This Function Prints the dictionary name, each line, and the number of errors
@@ -38,10 +38,10 @@ def print_norm_dict(LineDictionary):
 def print_mutant_dict(MutantDictionary):
 	for key, value in MutantDictionary.iteritems():
 		print key
-		for name, lines in value:
+		for name, lines in value.iteritems():
 			print name
-				for line in lines:
-					print line
+			for line in lines:
+				print line
 		
 #This function will create a Dictionary of Mutants for each example to include the original
 #and one copy with only a single error. 
@@ -53,7 +53,7 @@ def create_mutants(OriginalDict):
 		for i,line in enumerate(value["Lines"]):
 			if "error" in line:
 				ErrorIndex.append(i)
-		for i in range(0, OriginalDict["Error"]+1):
+		for i in range(0, value["Error"]+1):
 			if i == 0:
 				MutantDict[key]["Original"] = []
 				for line in value["Lines"]:
@@ -67,10 +67,10 @@ def create_mutants(OriginalDict):
 						continue
 					else:
 						MutantDict[key]["Error " + str(i)].pop(ErrorIndex[x])
-				if i == OriginalDict["Error"]:
+				if i == value["Error"]:
 					MutantDict[key]["No Errors"] = []
 					for line in value["Lines"]:
 						MutantDict[key]["No Errors"].append(line)
 					for index in ErrorIndex:
 						MutantDict[key]["No Errors"].pop(index)
-					
+	return MutantDict				

@@ -66,15 +66,11 @@ def create_mutants(OriginalDict):
 					if x == i-1:
 						continue
 					else:
-						MutantDict[key]["Error " + str(i)].remove(ErrorIndex[x])
+						MutantDict[key]["Error " + str(i)].pop(ErrorIndex[x])
+				if i == OriginalDict["Error"]:
+					MutantDict[key]["No Errors"] = []
+					for line in value["Lines"]:
+						MutantDict[key]["No Errors"].append(line)
+					for index in ErrorIndex:
+						MutantDict[key]["No Errors"].pop(index)
 					
-
-	
-	
-	
-	
-	
-	
-	
-	
-	

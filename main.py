@@ -16,7 +16,6 @@ elif pageRangeStart == pageRangeEnd:
 else:
 	page_list = [str(x) for x in range(pageRangeStart, pageRangeEnd+1)]
 	page_string = ', '.join(page_list)
-	print page_string
 	proc = subprocess.Popen(['python', 'pdf2txt.py', '-p', page_string, '-o', outFile, inFile])
 
 

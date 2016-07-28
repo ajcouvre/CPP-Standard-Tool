@@ -6,7 +6,7 @@ def read_file(filename):
 	ExampleReader = 0
 	DictCreation = 0
 	counter = 0
-	inFile = open(filename)
+	inFile = open(filename, 'r')
 	
 	for line in inFile:
 		if "end example ]" in line:
@@ -78,8 +78,6 @@ def create_mutants(OriginalDict):
 
 def write_files(MutantDict):
 	for name, example in MutantDict.iteritems():
-		for mutant, lines in example:
-			newfile = open(name+ '-' + mutant + ".cpp", 'w')
 		for mutant, lines in example.iteritems():
 			newFile = open(name + mutant + ".cpp", 'w')
 			for line in lines:

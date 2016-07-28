@@ -17,12 +17,12 @@ def read_file(filename):
 			continue
 		if ExampleReader == 1 and DictCreation == 0:
 			counter += 1
-			LineDictionary['Ex.'+str(counter)] = {"Lines":[], "Error":0}
+			LineDictionary['t'+str(counter)] = {"Lines":[], "Error":0}
 			DictCreation = 1
 		if ExampleReader == 1 and DictCreation == 1:
-			LineDictionary["Ex."+str(counter)]["Lines"].append(line)
+			LineDictionary["t"+str(counter)]["Lines"].append(line)
 			if "error" in line:
-				LineDictionary["Ex."+str(counter)]["Error"] += 1
+				LineDictionary["t"+str(counter)]["Error"] += 1
 	inFile.close()
 	return LineDictionary
 
@@ -55,31 +55,31 @@ def create_mutants(OriginalDict):
 				ErrorIndex.append(i)
 		for i in range(0, value["Error"]+1):
 			if i == 0:
-				MutantDict[key]["Original"] = []
+				MutantDict[key]["orig"] = []
 				for line in value["Lines"]:
-					MutantDict[key]["Original"].append(line)
+					MutantDict[key]["orig"].append(line)
 			else:
-				MutantDict[key]["Error " + str(i)] = []
+				MutantDict[key]["err-" + str(i)] = []
 				for line in value["Lines"]:
-					MutantDict[key]["Error " + str(i)].append(line)
+					MutantDict[key]["err-" + str(i)].append(line)
 				for x in range(0, len(ErrorIndex)):
 					if x == i-1:
 						continue
 					else:
-						MutantDict[key]["Error " + str(i)].pop(ErrorIndex[x])
+						MutantDict[key]["err-" + str(i)].pop(ErrorIndex[x])
 				if i == value["Error"]:
-					MutantDict[key]["No Errors"] = []
+					MutantDict[key]["noerr"] = []
 					for line in value["Lines"]:
-						MutantDict[key]["No Errors"].append(line)
+						MutantDict[key]["noerr"].append(line)
 					for index in ErrorIndex:
-						MutantDict[key]["No Errors"].pop(index)
+						MutantDict[key]["noerr"].pop(index)
 	return MutantDict
 
 
 def write_files(MutantDict):
 	for name, example in MutantDict.iteritems():
 		for mutant, lines in example:
-			newfile = open(name + mutant + ".cpp", 'w')
+			newfile = open(name+ '-' + mutant + ".cpp", 'w')
 			for line in lines:
 				newFile.write(line)
 				newfile.write("\n")

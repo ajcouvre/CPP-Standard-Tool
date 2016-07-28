@@ -78,13 +78,10 @@ def create_mutants(OriginalDict):
 
 def write_files(MutantDict):
 	for name, example in MutantDict.iteritems():
-<<<<<<< HEAD
 		for mutant, lines in example:
 			newfile = open(name+ '-' + mutant + ".cpp", 'w')
-=======
 		for mutant, lines in example.iteritems():
 			newFile = open(name + mutant + ".cpp", 'w')
->>>>>>> origin/master
 			for line in lines:
 				newFile.write(line)
 				newFile.write("\n")

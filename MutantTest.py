@@ -50,9 +50,14 @@ def create_mutants(OriginalDict):
 	for key, value in OriginalDict.iteritems():
 		MutantDict[key] = {}
 		ErrorIndex = []
+		print key
+		if key == "t141":
+			for line in value["Lines"]:
+				print line 
 		for i,line in enumerate(value["Lines"]):
 			if "error" in line:
 				ErrorIndex.append(i)
+		print ErrorIndex
 		for i in range(0, value["Error"]+1):
 			if i == 0:
 				MutantDict[key]["orig"] = []
@@ -79,7 +84,7 @@ def create_mutants(OriginalDict):
 def write_files(MutantDict):
 	for name, example in MutantDict.iteritems():
 		for mutant, lines in example.iteritems():
-			newFile = open(name + mutant + ".cpp", 'w')
+			newFile = open(name + '-' +  mutant + ".cpp", 'w')
 			for line in lines:
 				newFile.write(line)
 				newFile.write("\n")

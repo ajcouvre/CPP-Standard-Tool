@@ -51,9 +51,6 @@ def create_mutants(OriginalDict):
 		MutantDict[key] = {}
 		ErrorIndex = []
 		print key
-		if key == "t141":
-			for line in value["Lines"]:
-				print line 
 		for i,line in enumerate(value["Lines"]):
 			if "error" in line:
 				ErrorIndex.append(i)

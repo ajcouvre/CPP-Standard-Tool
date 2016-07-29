@@ -31,8 +31,8 @@ def print_norm_dict(LineDictionary):
 	for key, value in LineDictionary.iteritems():
 		print key
 		print
-		for line in value["Lines"]:
-			print line
+		for index, line in enumerate(value["Lines"]):
+			print index, line
 		print "Error:", value["Error"]
 
 def print_mutant_dict(MutantDictionary):
@@ -40,8 +40,8 @@ def print_mutant_dict(MutantDictionary):
 		print key
 		for name, lines in value.iteritems():
 			print name
-			for line in lines:
-				print line
+			for x, line in enumerate( lines):
+				print x,line
 		
 #This function will create a Dictionary of Mutants for each example to include the original
 #and one copy with only a single error. 
@@ -50,31 +50,33 @@ def create_mutants(OriginalDict):
 	for key, value in OriginalDict.iteritems():
 		MutantDict[key] = {}
 		ErrorIndex = []
-		print key
 		for i,line in enumerate(value["Lines"]):
 			if "error" in line:
 				ErrorIndex.append(i)
-		print ErrorIndex
-		for i in range(0, value["Error"]+1):
+		print key, ErrorIndex
+		for i in range(0, value["Error"]+2):
 			if i == 0:
 				MutantDict[key]["orig"] = []
 				for line in value["Lines"]:
 					MutantDict[key]["orig"].append(line)
 			else:
 				MutantDict[key]["err-" + str(i)] = []
-				for line in value["Lines"]:
-					MutantDict[key]["err-" + str(i)].append(line)
-				for x in range(0, len(ErrorIndex)):
-					if x == i-1:
-						continue
-					else:
-						MutantDict[key]["err-" + str(i)].pop(ErrorIndex[x])
-				if i == value["Error"]:
+			        if i == value["Error"]+1:
 					MutantDict[key]["noerr"] = []
 					for line in value["Lines"]:
 						MutantDict[key]["noerr"].append(line)
-					for index in ErrorIndex:
-						MutantDict[key]["noerr"].pop(index)
+					for x in range(len(ErrorIndex)-1, -1, -1):
+						MutantDict[key]["noerr"].pop(ErrorIndex[x])
+				else:
+					for line in value["Lines"]:
+						MutantDict[key]["err-" + str(i)].append(line)
+					for x in range(len(ErrorIndex)-1,-1, -1):
+						if x == i-1:
+							continue
+						else:
+							print x
+							MutantDict[key]["err-" + str(i)].pop(ErrorIndex[x])
+
 	return MutantDict
 
 

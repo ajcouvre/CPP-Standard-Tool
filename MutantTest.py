@@ -9,6 +9,16 @@ def read_file(filename):
 	inFile = open(filename, 'r')
 	
 	for line in inFile:
+		last_char = ' '
+		for character in line:
+			if ord(character) > 126 and last_char == '/':
+				line = line.replace(character, '*')
+				last_char = '*'
+			elif ord(character) > 126 and last_char == '*':
+				line = line.replace(character, '')
+				last_char = '*'
+			else:	
+				last_char = character
 		if "end example ]" in line:
 			ExampleReader = 0
 			DictCreation = 0
@@ -54,13 +64,12 @@ def create_mutants(OriginalDict):
 			if "error" in line:
 				ErrorIndex.append(i)
 		print key, ErrorIndex
-		for i in range(0, value["Error"]+2):
+		for i in range(0, value["Error"]+1):
 			if i == 0:
 				MutantDict[key]["orig"] = []
 				for line in value["Lines"]:
 					MutantDict[key]["orig"].append(line)
 			else:
-				MutantDict[key]["err-" + str(i)] = []
 			        if i == value["Error"]+1:
 					MutantDict[key]["noerr"] = []
 					for line in value["Lines"]:
@@ -68,6 +77,7 @@ def create_mutants(OriginalDict):
 					for x in range(len(ErrorIndex)-1, -1, -1):
 						MutantDict[key]["noerr"].pop(ErrorIndex[x])
 				else:
+					MutantDict[key]["err-" + str(i)] = []
 					for line in value["Lines"]:
 						MutantDict[key]["err-" + str(i)].append(line)
 					for x in range(len(ErrorIndex)-1,-1, -1):
@@ -86,6 +96,6 @@ def write_files(MutantDict):
 			newFile = open(name + '-' +  mutant + ".cpp", 'w')
 			for line in lines:
 				newFile.write(line)
-				newFile.write("\n")
+				#newFile.write("\n")
 				
 			

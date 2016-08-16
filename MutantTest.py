@@ -94,6 +94,10 @@ def write_files(MutantDict):
 	for name, example in MutantDict.iteritems():
 		for mutant, lines in example.iteritems():
 			newFile = open(name + '-' +  mutant + ".cpp", 'w')
+			headers = open('headers.h', 'r')
+			for line in headers:
+				newFile.write(line)
+			newFile.wrtie('\n')	
 			for line in lines:
 				newFile.write(line)
 				#newFile.write("\n")

@@ -1,28 +1,24 @@
 //Utilities Library
 #include <cstdlib>
-#include <csginal>
-#include <csetjump>
+#include <csignal>
+#include <csetjmp>
 #include <cstdarg>
 #include <typeinfo>
 #include <typeindex>
 #include <type_traits>
 #include <bitset>
-#include <fucntional>
+#include <functional>
 #include <utility>
 #include <ctime>
 #include <chrono>
 #include <cstddef>
 #include <initializer_list>
 #include <tuple>
-#include <any>
-#include <optional>
-#include <variant>
 
 //Dynamic Memory Management
 #include <new>
 #include <memory>
 #include <scoped_allocator>
-#include <memory_resource>
 
 //Numeric Limits
 #include <climits>
@@ -43,9 +39,8 @@
 #include <cwctype>
 #include <cstring>
 #include <cwchar>
-#include <cuchar>
+//#include <cuchar>
 #include <string>
-#include <string_view>
 
 //Containers Library
 #include <array>
@@ -62,10 +57,9 @@
 
 //Algorithms Library
 #include <algorithm>
-#include <execution>
 
 //Iterators library
- <iterator>
+#include <iterator>
 
 //Numerics Library
 #include <cmath>
@@ -87,12 +81,12 @@
 #include <strstream>
 #include <iomanip>
 #include <streambuf>
-#include <cstdtio>
+#include <cstdio>
 
 //Localization Library
 #include <locale>
 #include <clocale>
-#include <codecvt>
+//#include <codecvt>
 
 //Regular Expressions Library
 #include <regex>
@@ -103,12 +97,9 @@
 //Thread Support Library
 #include <thread>
 #include <mutex>
-#include <shared_mutex>
 #include <future>
 #include <condition_variable>
 
-//Filesystem Library
-#include <filesystem>
 
 //C Compatibility Headers
 #include <ciso646>
@@ -136,7 +127,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <stdlib.h<
+#include <stdlib.h>
 #include <string.h>
 #include <tgmath.h>
 #include <time.h>

@@ -63,8 +63,8 @@ def create_mutants(OriginalDict):
 		for i,line in enumerate(value["Lines"]):
 			if "error" in line:
 				ErrorIndex.append(i)
-		print key, ErrorIndex
-		for i in range(0, value["Error"]+1):
+#		print key, ErrorIndex
+		for i in range(0, value["Error"]+2):
 			if i == 0:
 				MutantDict[key]["orig"] = []
 				for line in value["Lines"]:
@@ -94,12 +94,17 @@ def write_files(MutantDict):
 	for name, example in MutantDict.iteritems():
 		for mutant, lines in example.iteritems():
 			newFile = open(name + '-' +  mutant + ".cpp", 'w')
-			headers = open('headers.h', 'r')
+			headers = open('CPP_Headers.h', 'r')
 			for line in headers:
 				newFile.write(line)
-			newFile.wrtie('\n')	
+			newFile.write('\n')	
+			newFile.write('int main()\n')
+			newFile.write('{')
 			for line in lines:
 				newFile.write(line)
 				#newFile.write("\n")
-				
+			newFile.write('\n')
+			newFile.write('return 0;\n')
+			newFile.write('}\n')
+
 			

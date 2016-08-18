@@ -21,12 +21,12 @@ else:
 proc.wait()
 #Create Normal Dictionary from output file, print to test
 LineDictionary = MT.read_file(outFile)
-MT.print_norm_dict(LineDictionary)
+#MT.print_norm_dict(LineDictionary)
 
 
 #Create Mutant Dictionary from normal dictionary, print to test
 MutantDictionary = MT.create_mutants(LineDictionary)
-MT.print_mutant_dict(MutantDictionary)
+#MT.print_mutant_dict(MutantDictionary)
 
 MT.write_files(MutantDictionary)
 

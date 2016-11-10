@@ -1,6 +1,9 @@
 #This Function creates a dictionary of dictionaries that contains
 #Each Example lines in a list, given a name "Ex.#", counts the number of error in each example
 #LineDictionary["Ex.#"] = {"Lines":[], "Error":0}
+import os
+
+
 def read_file(filename):
 	LineDictionary = {}
 	ExampleReader = 0
@@ -65,6 +68,8 @@ def create_mutants(OriginalDict):
 				ErrorIndex.append(i)
 #		print key, ErrorIndex
 		for i in range(0, value["Error"]+2):
+			
+		
 			if i == 0:
 				MutantDict[key]["orig"] = []
 				for line in value["Lines"]:
@@ -84,27 +89,37 @@ def create_mutants(OriginalDict):
 						if x == i-1:
 							continue
 						else:
-							print x
 							MutantDict[key]["err-" + str(i)].pop(ErrorIndex[x])
+
+	
+
+	for key, value in MutantDict.iteritems():
+		for name, lines in value.iteritems():
+			for i, line in enumerate(lines):
+				if line == "N4296":
+					if i < 5:
+						for j in range(0, i+1):
+							lines.pop(i-j)
+					else:
+						for j in range(0,6):
+							lines.pop(i-j)
+
 
 	return MutantDict
 
 
 def write_files(MutantDict):
+	os.makedirs("Examples")
+
 	for name, example in MutantDict.iteritems():
 		for mutant, lines in example.iteritems():
-			newFile = open(name + '-' +  mutant + ".cpp", 'w')
-			headers = open('CPP_Headers.h', 'r')
-			for line in headers:
-				newFile.write(line)
-			newFile.write('\n')	
-			newFile.write('int main()\n')
-			newFile.write('{')
+			newFile = open('Examples/'+name + '-' +  mutant + ".cpp", 'w')
+#			headers = open('CPP_Headers.h', 'r')
+#			for line in headers:
+#				newFile.write(line)
+#			newFile.write('\n')	
 			for line in lines:
 				newFile.write(line)
 				#newFile.write("\n")
-			newFile.write('\n')
-			newFile.write('return 0;\n')
-			newFile.write('}\n')
 
 			
